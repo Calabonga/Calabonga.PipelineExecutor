@@ -1,10 +1,13 @@
 ﻿namespace Calabonga.PipelineExecutor.Demo.Steps;
 
-public class ResizeStep : IPipelineStep<Image>
+public class ResizeStep : PipelineStep<Image>
 {
-    public void Execute(PipelineContext<Image> context)
+    public override int OrderIndex => 2;
+    public override Task ExecuteAsync(PipelineContext<Image> context, CancellationToken cancellationToken)
     {
         context.Item.Height = 100;
         context.Item.Width = 100;
+
+        return Task.CompletedTask;
     }
 }

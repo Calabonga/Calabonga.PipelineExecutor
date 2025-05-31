@@ -15,16 +15,16 @@ public class PipelineExecutor<T> where T : class
         _steps.Add(step);
     }
 
-    public PipelineResult<T> Run()
+    public async Task<PipelineResult<T>> RunAsync(CancellationToken cancellationToken)
     {
         if (!_steps.Any())
         {
             return PipelineResult<T>.Failure(errorMessage: "Sorry. No steps provided.");
         }
 
-        foreach (var step in _steps)
+        foreach (var step in _steps.OrderBy(x => x.OrderIndex))
         {
-            step.Execute(_context);
+            await step.ExecuteAsync(_context, cancellationToken).ConfigureAwait(false);
         }
 
         return PipelineResult<T>.Success(_context.Item);

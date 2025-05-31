@@ -2,5 +2,7 @@
 
 public interface IPipelineStep<T> where T : class
 {
-    void Execute(PipelineContext<T> context);
+    int OrderIndex { get; }
+
+    Task ExecuteAsync(PipelineContext<T> context, CancellationToken cancellationToken);
 }

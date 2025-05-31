@@ -1,9 +1,13 @@
 ﻿namespace Calabonga.PipelineExecutor.Demo.Steps;
 
-public class UppercaseNameStep : IPipelineStep<Image>
+public class UppercaseNameStep : PipelineStep<Image>
 {
-    public void Execute(PipelineContext<Image> context)
+    public override int OrderIndex => 1;
+
+    public override Task ExecuteAsync(PipelineContext<Image> context, CancellationToken cancellationToken)
     {
         context.Item.Name = context.Item.Name.ToUpperInvariant();
+
+        return Task.CompletedTask;
     }
 }

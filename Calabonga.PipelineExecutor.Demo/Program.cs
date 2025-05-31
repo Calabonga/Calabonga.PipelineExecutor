@@ -1,15 +1,15 @@
 ﻿using Calabonga.PipelineExecutor;
 using Calabonga.PipelineExecutor.Demo;
+using Calabonga.PipelineExecutor.Demo.Steps;
 
 var image = new Image();
 var context = new PipelineContext<Image>(image);
 var executor = new PipelineExecutor<Image>(context);
 
-// executor.AddStep(new ResizeStep());
-// executor.AddStep(new UpdateNameStep());
-// executor.AddStep(new UppercaseNameStep());
+executor.AddStep(new ResizeStep());
+executor.AddStep(new UpdateNameStep());
+executor.AddStep(new UppercaseNameStep());
 
-var result = executor.Run();
-
+var result = await executor.RunAsync(CancellationToken.None);
 
 Printer.Print(result);

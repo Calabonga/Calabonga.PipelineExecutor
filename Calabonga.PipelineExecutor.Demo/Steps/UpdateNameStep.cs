@@ -1,9 +1,13 @@
 ﻿namespace Calabonga.PipelineExecutor.Demo.Steps;
 
-public class UpdateNameStep : IPipelineStep<Image>
+public class UpdateNameStep : PipelineStep<Image>
 {
-    public void Execute(PipelineContext<Image> context)
+    public override int OrderIndex => 0;
+
+    public override Task ExecuteAsync(PipelineContext<Image> context, CancellationToken cancellationToken)
     {
         context.Item.Name = "ImageFromPipeline.png";
+
+        return Task.CompletedTask;
     }
 }
