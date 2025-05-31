@@ -1,11 +1,9 @@
-﻿using Calabonga.PipelineExecutor.Demo.PipelineExecutors;
+﻿namespace Calabonga.PipelineExecutor.Demo.Steps;
 
-namespace Calabonga.PipelineExecutor.Demo.Steps;
-
-public class UpdateNameStep : IPipelineStep
+public class UpdateNameStep : IPipelineStep<Image>
 {
-    public void Execute(PipelineContext context)
+    public void Execute(PipelineContext<Image> context)
     {
-
+        context.Item.Name = "ImageFromPipeline.png";
     }
 }

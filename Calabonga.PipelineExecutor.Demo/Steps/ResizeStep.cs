@@ -1,11 +1,10 @@
-﻿using Calabonga.PipelineExecutor.Demo.PipelineExecutors;
+﻿namespace Calabonga.PipelineExecutor.Demo.Steps;
 
-namespace Calabonga.PipelineExecutor.Demo.Steps;
-
-public class ResizeStep : IPipelineStep
+public class ResizeStep : IPipelineStep<Image>
 {
-    public void Execute(PipelineContext context)
+    public void Execute(PipelineContext<Image> context)
     {
-
+        context.Item.Height = 100;
+        context.Item.Width = 100;
     }
 }
