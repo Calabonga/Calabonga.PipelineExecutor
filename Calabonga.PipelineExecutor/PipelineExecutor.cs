@@ -1,5 +1,9 @@
 ﻿namespace Calabonga.PipelineExecutor;
 
+/// <summary>
+/// Pipeline steps executor
+/// </summary>
+/// <typeparam name="T"></typeparam>
 public class PipelineExecutor<T> where T : class
 {
     private readonly PipelineContext<T> _context;
@@ -10,11 +14,20 @@ public class PipelineExecutor<T> where T : class
         _context = context;
     }
 
+    /// <summary>
+    /// Registers a step for current pipelene
+    /// </summary>
+    /// <param name="step"></param>
     public void AddStep(IPipelineStep<T> step)
     {
         _steps.Add(step);
     }
 
+    /// <summary>
+    /// Runs execute steps in current pipelines
+    /// </summary>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
     public async Task<PipelineResult<T>> RunAsync(CancellationToken cancellationToken)
     {
         if (!_steps.Any())
