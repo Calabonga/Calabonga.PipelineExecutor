@@ -4,10 +4,10 @@ public class ResizeStep : PipelineStep<Image>
 {
     public override int OrderIndex => 2;
 
-    public override Task ExecuteAsync(PipelineContext<Image> context, CancellationToken cancellationToken)
+    public override Task ExecuteAsync(Image item, PipelineContext<Image> context, CancellationToken cancellationToken)
     {
-        context.Item.Height = 100;
-        context.Item.Width = 100;
+        item.Height = 100;
+        item.Width = 100;
 
         return Task.CompletedTask;
     }

@@ -4,9 +4,9 @@ public class UpdateNameStep : PipelineStep<Image>
 {
     public override int OrderIndex => 0;
 
-    public override Task ExecuteAsync(PipelineContext<Image> context, CancellationToken cancellationToken)
+    public override Task ExecuteAsync(Image item, PipelineContext<Image> context, CancellationToken cancellationToken)
     {
-        context.Item.Name = "ImageFromPipeline.png";
+        item.Name = "ImageFromPipeline.png";
 
         return Task.CompletedTask;
     }

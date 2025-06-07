@@ -7,15 +7,16 @@
 public class PipelineExecutor<T> where T : class
 {
     private readonly PipelineContext<T> _context;
-    private readonly List<IPipelineStep<T>> _steps = [];
+    private readonly List<IPipelineStep<T>> _steps;
 
-    public PipelineExecutor(PipelineContext<T> context)
+    public PipelineExecutor(IEnumerable<IPipelineStep<T>> steps, PipelineContext<T>? context = null)
     {
-        _context = context;
+        _context = context ?? new();
+        _steps = steps.ToList();
     }
 
     /// <summary>
-    /// Registers a step for current pipelene
+    /// Registers a step for current pipeline
     /// </summary>
     /// <param name="step"></param>
     public void AddStep(IPipelineStep<T> step)
@@ -26,9 +27,10 @@ public class PipelineExecutor<T> where T : class
     /// <summary>
     /// Runs execute steps in current pipelines
     /// </summary>
+    /// <param name="item"></param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    public async Task<PipelineResult<T>> RunAsync(CancellationToken cancellationToken)
+    public async Task<PipelineResult<T>> RunAsync(T item, CancellationToken cancellationToken)
     {
         if (!_steps.Any())
         {
@@ -37,9 +39,9 @@ public class PipelineExecutor<T> where T : class
 
         foreach (var step in _steps.OrderBy(x => x.OrderIndex))
         {
-            await step.ExecuteAsync(_context, cancellationToken).ConfigureAwait(false);
+            await step.ExecuteAsync(item, _context, cancellationToken).ConfigureAwait(false);
         }
 
-        return PipelineResult<T>.Success(_context.Item);
+        return PipelineResult<T>.Success(item);
     }
 }

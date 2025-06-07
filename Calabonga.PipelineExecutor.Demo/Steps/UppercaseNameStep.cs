@@ -4,9 +4,9 @@ public class UppercaseNameStep : PipelineStep<Image>
 {
     public override int OrderIndex => 1;
 
-    public override Task ExecuteAsync(PipelineContext<Image> context, CancellationToken cancellationToken)
+    public override Task ExecuteAsync(Image item, PipelineContext<Image> context, CancellationToken cancellationToken)
     {
-        context.Item.Name = context.Item.Name.ToUpperInvariant();
+        item.Name = item.Name.ToUpperInvariant();
 
         return Task.CompletedTask;
     }
