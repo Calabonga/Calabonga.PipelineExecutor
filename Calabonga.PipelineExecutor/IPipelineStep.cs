@@ -18,5 +18,5 @@ public interface IPipelineStep<T> where T : class
     /// <param name="context"></param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    Task ExecuteAsync(T item, PipelineContext<T> context, CancellationToken cancellationToken);
+    Task ExecuteAsync(T item, IPipelineContext<T> context, CancellationToken cancellationToken);
 }

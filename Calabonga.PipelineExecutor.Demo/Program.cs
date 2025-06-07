@@ -5,6 +5,8 @@ using Microsoft.Extensions.DependencyInjection;
 
 var container = ConsoleApp.CreateContainer(services =>
 {
+    // services.AddScoped<IPipelineContext<Image>, DefaultPipelineContext<Image>>();
+    services.AddScoped<IPipelineContext<Image>, ImagePipelineContext>();
     services.AddScoped<PipelineExecutor<Image>>();
     services.AddScoped<IPipelineStep<Image>, ResizeStep>();
     services.AddScoped<IPipelineStep<Image>, UpdateNameStep>();

@@ -6,12 +6,12 @@
 /// <typeparam name="T"></typeparam>
 public class PipelineExecutor<T> where T : class
 {
-    private readonly PipelineContext<T> _context;
+    private readonly IPipelineContext<T> _context;
     private readonly List<IPipelineStep<T>> _steps;
 
-    public PipelineExecutor(IEnumerable<IPipelineStep<T>> steps, PipelineContext<T>? context = null)
+    public PipelineExecutor(IEnumerable<IPipelineStep<T>> steps, IPipelineContext<T>? context)
     {
-        _context = context ?? new();
+        _context = context;
         _steps = steps.ToList();
     }
 

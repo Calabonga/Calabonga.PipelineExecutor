@@ -18,5 +18,5 @@ public abstract class PipelineStep<T> : IPipelineStep<T> where T : class
     /// <param name="context"></param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    public abstract Task ExecuteAsync(T item, PipelineContext<T> context, CancellationToken cancellationToken);
+    public abstract Task ExecuteAsync(T item, IPipelineContext<T> context, CancellationToken cancellationToken);
 }
