@@ -2,9 +2,9 @@
 
 namespace Calabonga.PipelineExecutor.Demo.Steps;
 
-public class ResizeStep : PipelineStep<Image>
+public class ManualStep : PipelineStep<Image>
 {
-    public override int OrderIndex => 2;
+    public override int OrderIndex => -1;
 
     public override Task ExecuteAsync(
         Image item,
@@ -12,10 +12,7 @@ public class ResizeStep : PipelineStep<Image>
         ILogger<PipelineExecutor<Image>> logger,
         CancellationToken cancellationToken)
     {
-        item.Height = 100;
-        item.Width = 100;
-
-        logger.LogInformation("[PIPELINE] Resize done 100 x 100");
+        logger.LogInformation("[PIPELINE] Step {Name} complete", GetType().Name);
 
         return Task.CompletedTask;
     }

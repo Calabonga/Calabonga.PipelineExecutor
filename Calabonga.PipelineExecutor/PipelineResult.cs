@@ -4,7 +4,7 @@
 /// Pipeline result wrapper
 /// </summary>
 /// <typeparam name="T"></typeparam>
-public class PipelineResult<T> where T : class
+public sealed class PipelineResult<T> where T : class
 {
     /// <summary>
     /// Returns result as successfully completed operation

@@ -13,4 +13,6 @@ public class ImagePipelineContext : IPipelineContext<Image>
     }
 
     public string Name { get; }
+
+    public ExecuteStepStrategy Strategy => ExecuteStepStrategy.Append;
 }

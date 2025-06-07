@@ -1,4 +1,6 @@
-﻿namespace Calabonga.PipelineExecutor;
+﻿using Microsoft.Extensions.Logging;
+
+namespace Calabonga.PipelineExecutor;
 
 /// <summary>
 /// Default pipeline step class with base functionality
@@ -16,7 +18,12 @@ public interface IPipelineStep<T> where T : class
     /// </summary>
     /// <param name="item"></param>
     /// <param name="context"></param>
+    /// <param name="logger"></param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    Task ExecuteAsync(T item, IPipelineContext<T> context, CancellationToken cancellationToken);
+    Task ExecuteAsync(
+        T item,
+        IPipelineContext<T> context,
+        ILogger<PipelineExecutor<T>> logger,
+        CancellationToken cancellationToken);
 }

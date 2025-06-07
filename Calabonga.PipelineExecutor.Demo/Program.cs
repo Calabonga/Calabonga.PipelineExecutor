@@ -3,6 +3,7 @@ using Calabonga.PipelineExecutor.Demo;
 using Calabonga.PipelineExecutor.Demo.Steps;
 using Microsoft.Extensions.DependencyInjection;
 
+// initialize Dependency Container
 var container = ConsoleApp.CreateContainer(services =>
 {
     // services.AddScoped<IPipelineContext<Image>, DefaultPipelineContext<Image>>();
@@ -13,10 +14,14 @@ var container = ConsoleApp.CreateContainer(services =>
     services.AddScoped<IPipelineStep<Image>, UppercaseNameStep>();
 });
 
+// create an entity for pipeline
 var image = new Image();
 
+// getting executor
 var executor = container.GetRequiredService<PipelineExecutor<Image>>();
 
+//adding manual step into executor
+executor.AddStep(new ManualStep());
 
 #region Old implementation
 // var context = new PipelineContext<Image>(image);
@@ -27,6 +32,8 @@ var executor = container.GetRequiredService<PipelineExecutor<Image>>();
 // executor.AddStep(new UppercaseNameStep());
 #endregion
 
+// execute pipeline 
 var result = await executor.RunAsync(image, CancellationToken.None);
 
+// output result
 Printer.Print(result);

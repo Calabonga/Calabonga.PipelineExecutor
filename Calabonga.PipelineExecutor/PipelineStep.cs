@@ -1,22 +1,34 @@
-﻿namespace Calabonga.PipelineExecutor;
+﻿using Microsoft.Extensions.Logging;
+
+namespace Calabonga.PipelineExecutor;
 
 /// <summary>
-/// Default pipeline step class with base functionality
+/// Pipeline step with base functionality
 /// </summary>
 /// <typeparam name="T"></typeparam>
 public abstract class PipelineStep<T> : IPipelineStep<T> where T : class
 {
     /// <summary>
-    /// Sorting index on execution
+    /// Sorting index for step executing
     /// </summary>
     public virtual int OrderIndex { get; } = 0;
 
     /// <summary>
-    /// Executes pipeline step
+    /// Indicate how it's added into executor. When <c>True</c> then added manually.
     /// </summary>
-    /// <param name="item"></param>
+    protected internal bool IsManual { get; set; }
+
+    /// <summary>
+    /// Executes pipeline steps in accordance with order index.
+    /// </summary>
+    /// <param name="item">item to process</param>
     /// <param name="context"></param>
+    /// <param name="logger"></param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    public abstract Task ExecuteAsync(T item, IPipelineContext<T> context, CancellationToken cancellationToken);
+    public abstract Task ExecuteAsync(
+        T item,
+        IPipelineContext<T> context,
+        ILogger<PipelineExecutor<T>> logger,
+        CancellationToken cancellationToken);
 }
