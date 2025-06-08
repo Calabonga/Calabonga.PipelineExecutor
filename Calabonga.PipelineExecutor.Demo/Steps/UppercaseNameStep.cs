@@ -6,7 +6,7 @@ public class UppercaseNameStep : PipelineStep<Image>
 {
     public override int OrderIndex => 1;
 
-    public override Task ExecuteAsync(
+    public override Task<StepResult> ExecuteAsync(
         Image item,
         IPipelineContext<Image> context,
         ILogger<PipelineExecutor<Image>> logger,
@@ -15,6 +15,6 @@ public class UppercaseNameStep : PipelineStep<Image>
         item.Name = item.Name.ToUpperInvariant();
         logger.LogInformation("[PIPELINE] Uppercase name transformed");
 
-        return Task.CompletedTask;
+        return Task.FromResult(StepResult.Success());
     }
 }

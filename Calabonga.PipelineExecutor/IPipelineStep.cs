@@ -21,7 +21,7 @@ public interface IPipelineStep<T> where T : class
     /// <param name="logger"></param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    Task ExecuteAsync(
+    Task<StepResult> ExecuteAsync(
         T item,
         IPipelineContext<T> context,
         ILogger<PipelineExecutor<T>> logger,

@@ -6,7 +6,7 @@ public class ResizeStep : PipelineStep<Image>
 {
     public override int OrderIndex => 2;
 
-    public override Task ExecuteAsync(
+    public override Task<StepResult> ExecuteAsync(
         Image item,
         IPipelineContext<Image> context,
         ILogger<PipelineExecutor<Image>> logger,
@@ -17,6 +17,6 @@ public class ResizeStep : PipelineStep<Image>
 
         logger.LogInformation("[PIPELINE] Resize done 100 x 100");
 
-        return Task.CompletedTask;
+        return Task.FromResult(StepResult.Failure("error during resizing"));
     }
 }

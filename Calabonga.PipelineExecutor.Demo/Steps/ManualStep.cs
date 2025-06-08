@@ -6,7 +6,7 @@ public class ManualStep : PipelineStep<Image>
 {
     public override int OrderIndex => -1;
 
-    public override Task ExecuteAsync(
+    public override Task<StepResult> ExecuteAsync(
         Image item,
         IPipelineContext<Image> context,
         ILogger<PipelineExecutor<Image>> logger,
@@ -14,6 +14,6 @@ public class ManualStep : PipelineStep<Image>
     {
         logger.LogInformation("[PIPELINE] Step manual executed");
 
-        return Task.CompletedTask;
+        return Task.FromResult(StepResult.Success());
     }
 }

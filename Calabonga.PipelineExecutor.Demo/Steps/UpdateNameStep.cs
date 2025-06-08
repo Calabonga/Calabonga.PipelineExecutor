@@ -6,7 +6,7 @@ public class UpdateNameStep : PipelineStep<Image>
 {
     public override int OrderIndex => 0;
 
-    public override Task ExecuteAsync(
+    public override Task<StepResult> ExecuteAsync(
         Image item,
         IPipelineContext<Image> context,
         ILogger<PipelineExecutor<Image>> logger,
@@ -21,13 +21,13 @@ public class UpdateNameStep : PipelineStep<Image>
                 logger.LogDebug("[PIPELINE] {ContextName} applied.", nameof(ImagePipelineContext));
             }
 
-            return Task.CompletedTask;
+            return Task.FromResult(StepResult.Success());
         }
 
         logger.LogInformation("[PIPELINE] Default name applied.");
 
         item.Name = "ImageFromPipeline.png";
 
-        return Task.CompletedTask;
+        return Task.FromResult(StepResult.Success());
     }
 }

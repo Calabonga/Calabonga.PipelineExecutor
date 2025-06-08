@@ -26,7 +26,7 @@ public abstract class PipelineStep<T> : IPipelineStep<T> where T : class
     /// <param name="logger"></param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    public abstract Task ExecuteAsync(
+    public abstract Task<StepResult> ExecuteAsync(
         T item,
         IPipelineContext<T> context,
         ILogger<PipelineExecutor<T>> logger,

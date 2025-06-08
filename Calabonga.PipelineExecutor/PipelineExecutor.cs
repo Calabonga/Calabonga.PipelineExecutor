@@ -67,30 +67,45 @@ public sealed class PipelineExecutor<T> where T : class
             _ => throw new ArgumentOutOfRangeException()
         };
 
-        foreach (var step in stepsToExecute.OrderBy(x => x.OrderIndex))
+        try
         {
-            if (_logger.IsEnabled(LogLevel.Debug))
+            foreach (var step in stepsToExecute.OrderBy(x => x.OrderIndex))
             {
-                _logger.LogInformation("[PIPELINE] Step {Name} with order {StemIndex} is starting...",
-                    step.GetType().Name,
-                    step.OrderIndex);
+                if (_logger.IsEnabled(LogLevel.Debug))
+                {
+                    _logger.LogInformation("[PIPELINE] Step {Name} with order {StemIndex} is starting...",
+                        step.GetType().Name,
+                        step.OrderIndex);
+                }
+
+                var stepResult = await step
+                    .ExecuteAsync(item, _context, _logger, cancellationToken)
+                    .ConfigureAwait(false);
+
+                if (!stepResult.Ok)
+                {
+                    _logger.LogError(stepResult.ErrorMessage);
+
+                    return PipelineResult<T>.Failure(stepResult.ErrorMessage!);
+                }
+
+                if (_logger.IsEnabled(LogLevel.Debug))
+                {
+                    _logger.LogInformation("[PIPELINE] Step {Name} with order {StemIndex} is done...",
+                        step.GetType().Name,
+                        step.OrderIndex);
+                }
             }
 
-            await step.ExecuteAsync(item, _context, _logger, cancellationToken).ConfigureAwait(false);
-
-            if (_logger.IsEnabled(LogLevel.Debug))
-            {
-                _logger.LogInformation("[PIPELINE] Step {Name} with order {StemIndex} is done...",
-                    step.GetType().Name,
-                    step.OrderIndex);
-            }
+            return PipelineResult<T>.Success(item);
         }
-
-        return PipelineResult<T>.Success(item);
+        catch (Exception exception)
+        {
+            return PipelineResult<T>.Failure(exception.Message);
+        }
     }
 
-    private readonly Func<IPipelineStep<T>, bool> _strategyFilter = step
-    =>
+    private readonly Func<IPipelineStep<T>, bool> _strategyFilter = step =>
     {
         if (step is PipelineStep<T> pipelineStep)
         {
