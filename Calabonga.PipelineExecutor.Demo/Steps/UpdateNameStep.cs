@@ -21,7 +21,7 @@ public class UpdateNameStep : PipelineStep<Image>
                 logger.LogDebug("[PIPELINE] {ContextName} applied.", nameof(ImagePipelineContext));
             }
 
-            return Task.FromResult(StepResult.Success());
+            return Task.FromResult(StepResult.Failure("TEST"));
         }
 
         logger.LogInformation("[PIPELINE] Default name applied.");

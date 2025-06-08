@@ -14,5 +14,7 @@ public class ImagePipelineContext : IPipelineContext<Image>
 
     public string Name { get; }
 
-    public ExecuteStepStrategy Strategy => ExecuteStepStrategy.Append;
+    public AdditionalStepStrategy AdditionalStepStrategy => AdditionalStepStrategy.Append;
+
+    public FailedStepStrategy FailedStepStrategy => FailedStepStrategy.NotStopPipeline;
 }

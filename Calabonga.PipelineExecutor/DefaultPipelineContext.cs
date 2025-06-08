@@ -9,5 +9,10 @@ public sealed class DefaultPipelineContext<T> : IPipelineContext<T> where T : cl
     /// <summary>
     /// Strategy for steps executing when manual steps added.
     /// </summary>
-    public ExecuteStepStrategy Strategy { get; } = ExecuteStepStrategy.Append;
+    public AdditionalStepStrategy AdditionalStepStrategy { get; } = AdditionalStepStrategy.Append;
+
+    /// <summary>
+    /// Strategy when step operation failed
+    /// </summary>
+    public FailedStepStrategy FailedStepStrategy { get; } = FailedStepStrategy.StopPipeline;
 }

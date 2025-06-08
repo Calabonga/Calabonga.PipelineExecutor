@@ -17,6 +17,6 @@ public class ResizeStep : PipelineStep<Image>
 
         logger.LogInformation("[PIPELINE] Resize done 100 x 100");
 
-        return Task.FromResult(StepResult.Failure("error during resizing"));
+        return Task.FromResult(StepResult.Success());
     }
 }

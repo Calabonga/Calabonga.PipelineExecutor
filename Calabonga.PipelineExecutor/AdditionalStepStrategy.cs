@@ -3,7 +3,7 @@
 /// <summary>
 /// Strategy for steps executing when manual steps added.
 /// </summary>
-public enum ExecuteStepStrategy
+public enum AdditionalStepStrategy
 {
     /// <summary>
     /// Not defined strategy is unacceptable

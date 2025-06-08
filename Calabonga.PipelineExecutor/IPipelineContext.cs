@@ -7,7 +7,12 @@
 public interface IPipelineContext<T> where T : class
 {
     /// <summary>
-    /// Strategy for steps executing when manual steps added. <see cref="ExecuteStepStrategy"/>
+    /// Strategy for steps executing when manual steps added (<see cref="PipelineExecutor.AdditionalStepStrategy"/>).
     /// </summary>
-    ExecuteStepStrategy Strategy { get; }
+    AdditionalStepStrategy AdditionalStepStrategy { get; }
+
+    /// <summary>
+    /// Strategy when step operation failed (<see cref="FailedStepStrategy"/>)
+    /// </summary>
+    FailedStepStrategy FailedStepStrategy { get; }
 }

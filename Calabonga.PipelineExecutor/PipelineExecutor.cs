@@ -8,6 +8,7 @@ namespace Calabonga.PipelineExecutor;
 /// <typeparam name="T"></typeparam>
 public sealed class PipelineExecutor<T> where T : class
 {
+    private readonly List<PipelineEvent> _events = [];
     private readonly IPipelineContext<T> _context;
     private readonly ILogger<PipelineExecutor<T>> _logger;
     private readonly List<IPipelineStep<T>> _steps;
@@ -20,6 +21,8 @@ public sealed class PipelineExecutor<T> where T : class
         _context = context;
         _logger = logger;
         _steps = steps.ToList();
+
+        _events.Add(new PipelineEvent { Message = $"Total steps added from container {_steps.Count}", LogLevel = LogLevel.Information });
     }
 
     /// <summary>
@@ -34,6 +37,8 @@ public sealed class PipelineExecutor<T> where T : class
         }
 
         _steps.Add(step);
+
+        _events.Add(new PipelineEvent { Message = "Manual step added", LogLevel = LogLevel.Information });
     }
 
     /// <summary>
@@ -51,19 +56,19 @@ public sealed class PipelineExecutor<T> where T : class
             {
                 _logger.LogError(message);
             }
-            return PipelineResult<T>.Failure(errorMessage: message);
+            return PipelineResult<T>.Failure(message, _events);
         }
 
         if (_logger.IsEnabled(LogLevel.Information))
         {
-            _logger.LogDebug("[PIPELINE] Filtering steps in accordance with strategy {StrategyName}", _context.Strategy);
+            _logger.LogDebug("[PIPELINE] Filtering steps in accordance with strategy {StrategyName}", _context.AdditionalStepStrategy);
         }
 
-        var stepsToExecute = _context.Strategy switch
+        var stepsToExecute = _context.AdditionalStepStrategy switch
         {
-            ExecuteStepStrategy.Undefined => _steps,
-            ExecuteStepStrategy.Append => _steps,
-            ExecuteStepStrategy.ManualOnly => _steps.Where(_strategyFilter),
+            AdditionalStepStrategy.Undefined => _steps,
+            AdditionalStepStrategy.Append => _steps,
+            AdditionalStepStrategy.ManualOnly => _steps.Where(_strategyFilter),
             _ => throw new ArgumentOutOfRangeException()
         };
 
@@ -86,7 +91,27 @@ public sealed class PipelineExecutor<T> where T : class
                 {
                     _logger.LogError(stepResult.ErrorMessage);
 
-                    return PipelineResult<T>.Failure(stepResult.ErrorMessage!);
+                    switch (_context.FailedStepStrategy)
+                    {
+                        case FailedStepStrategy.StopPipeline:
+                            _events.Add(new PipelineEvent
+                            {
+                                Message = stepResult.ErrorMessage!,
+                                LogLevel = LogLevel.Error
+                            });
+                            return PipelineResult<T>.Failure(stepResult.ErrorMessage!, _events);
+
+                        case FailedStepStrategy.NotStopPipeline:
+                            _events.Add(new PipelineEvent
+                            {
+                                Message = stepResult.ErrorMessage!,
+                                LogLevel = LogLevel.Error
+                            });
+                            break;
+                        case FailedStepStrategy.Undefined:
+                        default:
+                            throw new ArgumentOutOfRangeException();
+                    }
                 }
 
                 if (_logger.IsEnabled(LogLevel.Debug))
@@ -97,11 +122,11 @@ public sealed class PipelineExecutor<T> where T : class
                 }
             }
 
-            return PipelineResult<T>.Success(item);
+            return PipelineResult<T>.Success(item, _events);
         }
         catch (Exception exception)
         {
-            return PipelineResult<T>.Failure(exception.Message);
+            return PipelineResult<T>.Failure(exception.Message, _events);
         }
     }
 

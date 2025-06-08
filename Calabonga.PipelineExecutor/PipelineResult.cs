@@ -8,11 +8,17 @@ public sealed class PipelineResult<T> where T : class
 {
     #region constructor
 
-    private PipelineResult(T? result, string? errorMessage)
+    private PipelineResult(IEnumerable<PipelineEvent> logs, T? result, string? errorMessage)
     {
+        Events = logs;
         Result = result;
         ErrorMessage = errorMessage;
     }
+
+    /// <summary>
+    /// Pipeline event list
+    /// </summary>
+    public IEnumerable<PipelineEvent> Events { get; }
 
     #endregion
 
@@ -20,15 +26,19 @@ public sealed class PipelineResult<T> where T : class
     /// Returns result as successfully completed operation
     /// </summary>
     /// <param name="result"></param>
+    /// <param name="logs"></param>
     /// <returns></returns>
-    public static PipelineResult<T> Success(T result) => new(result, null);
+    public static PipelineResult<T> Success(T result, IEnumerable<PipelineEvent> logs)
+        => new(logs, result, null);
 
     /// <summary>
     /// Returns an error as additional information about what failed and why
     /// </summary>
     /// <param name="errorMessage"></param>
+    /// <param name="logs"></param>
     /// <returns></returns>
-    public static PipelineResult<T> Failure(string errorMessage) => new(null, errorMessage);
+    public static PipelineResult<T> Failure(string errorMessage, IEnumerable<PipelineEvent> logs)
+        => new(logs, null, errorMessage);
 
     /// <summary>
     /// Result of the pipeline
