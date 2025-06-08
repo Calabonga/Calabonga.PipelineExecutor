@@ -54,6 +54,11 @@ public sealed class PipelineExecutor<T> where T : class
             return PipelineResult<T>.Failure(errorMessage: message);
         }
 
+        if (_logger.IsEnabled(LogLevel.Information))
+        {
+            _logger.LogDebug("[PIPELINE] Filtering steps in accordance with strategy {StrategyName}", _context.Strategy);
+        }
+
         var stepsToExecute = _context.Strategy switch
         {
             ExecuteStepStrategy.Undefined => _steps,

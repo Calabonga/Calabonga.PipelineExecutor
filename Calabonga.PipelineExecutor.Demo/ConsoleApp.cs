@@ -23,7 +23,12 @@ public static class ConsoleApp
             .AddDotNetEnv(".env", LoadOptions.TraversePath())
             .Build();
 
-        var logger = new LoggerConfiguration().MinimumLevel.Verbose()
+        var logger = new LoggerConfiguration().MinimumLevel
+#if DEBUG
+            .Debug()
+#else
+            .Warning()
+#endif
             .WriteTo.Console()
             .CreateLogger();
 

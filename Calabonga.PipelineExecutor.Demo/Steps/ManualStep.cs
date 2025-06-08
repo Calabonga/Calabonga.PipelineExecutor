@@ -12,7 +12,7 @@ public class ManualStep : PipelineStep<Image>
         ILogger<PipelineExecutor<Image>> logger,
         CancellationToken cancellationToken)
     {
-        logger.LogInformation("[PIPELINE] Step {Name} complete", GetType().Name);
+        logger.LogInformation("[PIPELINE] Step manual executed");
 
         return Task.CompletedTask;
     }

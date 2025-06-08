@@ -16,7 +16,10 @@ public class UpdateNameStep : PipelineStep<Image>
         {
             var name = imagePipelineContext.Name;
             item.Name = name;
-            logger.LogInformation("[PIPELINE] {ContextName} applied.", nameof(ImagePipelineContext));
+            if (logger.IsEnabled(LogLevel.Debug))
+            {
+                logger.LogDebug("[PIPELINE] {ContextName} applied.", nameof(ImagePipelineContext));
+            }
 
             return Task.CompletedTask;
         }

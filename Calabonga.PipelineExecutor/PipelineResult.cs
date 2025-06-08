@@ -6,6 +6,16 @@
 /// <typeparam name="T"></typeparam>
 public sealed class PipelineResult<T> where T : class
 {
+    #region constructor
+
+    private PipelineResult(T? result, string? errorMessage)
+    {
+        Result = result;
+        ErrorMessage = errorMessage;
+    }
+
+    #endregion
+
     /// <summary>
     /// Returns result as successfully completed operation
     /// </summary>
@@ -19,12 +29,6 @@ public sealed class PipelineResult<T> where T : class
     /// <param name="errorMessage"></param>
     /// <returns></returns>
     public static PipelineResult<T> Failure(string errorMessage) => new(null, errorMessage);
-
-    private PipelineResult(T? result, string? errorMessage)
-    {
-        Result = result;
-        ErrorMessage = errorMessage;
-    }
 
     /// <summary>
     /// Result of the pipeline
