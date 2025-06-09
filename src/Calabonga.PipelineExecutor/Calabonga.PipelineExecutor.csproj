@@ -1,0 +1,45 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>netstandard2.1</TargetFramework>
+		<Nullable>enable</Nullable>
+		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+		<Version>1.0.0-beta.1</Version>
+		<PackageIconUrl>https://www.calabonga.net/images/logo.png</PackageIconUrl>
+		<PackageTags>calabonga, pipeline, executor, pattern</PackageTags>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+		<Authors>Calabonga</Authors>
+		<Copyright>Calabonga SOFT © 2001-$([System.DateTime]::Now.ToString(yyyy))</Copyright>
+		<Company>Calabonga SOFT</Company>
+		<Description>Pipeline pattern implementation. Simple process executor step-by-step.</Description>
+		<Product>Calabonga.PipelineExecutor</Product>
+		<PackageId>Calabonga.PipelineExecutor</PackageId>
+		<PackageReleaseNotes>First beta version.</PackageReleaseNotes>
+		<Title>Calabonga.PipelineExecutor</Title>
+		<PackageIcon>logo.png</PackageIcon>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
+		<RepositoryType>git</RepositoryType>
+		<RepositoryUrl>https://github.com/Calabonga/Calabonga.Utils.Extensions</RepositoryUrl>
+		<PackageProjectUrl>https://github.com/Calabonga/Calabonga.Utils.Extensions</PackageProjectUrl>
+
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="9.0.5" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<None Include="..\..\..\README.md">
+			<Pack>True</Pack>
+			<PackagePath>\</PackagePath>
+		</None>
+	</ItemGroup>
+
+	<ItemGroup>
+		<None Include="logo.png">
+			<Pack>True</Pack>
+			<PackagePath>\</PackagePath>
+		</None>
+	</ItemGroup>
+
+</Project>
