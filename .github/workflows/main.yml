@@ -33,7 +33,7 @@ jobs:
           dotnet-version: 9.0.x
 
       - name: Install dependencies
-        run: dotnet restore src/Calabonga.PipelineStepExecutor.sln
+        run: dotnet restore src/Calabonga.PipelineExecutor/Calabonga.PipelineExecutor.csproj
        
       - name: Build
         run: dotnet build src/Calabonga.PipelineExecutor/Calabonga.PipelineExecutor.csproj --configuration Release --no-restore
