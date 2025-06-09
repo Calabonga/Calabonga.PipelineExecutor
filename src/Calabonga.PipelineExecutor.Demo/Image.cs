@@ -1,11 +1,10 @@
-﻿namespace Calabonga.PipelineExecutor.Demo
+﻿namespace Calabonga.PipelineExecutor.Demo;
+
+public class Image
 {
-    public class Image
-    {
-        public string Name { get; set; } = null!;
+    public string Name { get; set; } = null!;
 
-        public double Height { get; set; }
+    public double Height { get; set; }
 
-        public double Width { get; set; }
-    }
+    public double Width { get; set; }
 }

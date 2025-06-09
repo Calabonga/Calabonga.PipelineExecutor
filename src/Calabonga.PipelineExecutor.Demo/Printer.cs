@@ -1,17 +1,17 @@
 ﻿using System.Text.Json;
+using Microsoft.Extensions.Logging;
 
-namespace Calabonga.PipelineExecutor.Demo
+namespace Calabonga.PipelineExecutor.Demo;
+
+public static class Printer
 {
-    public static class Printer
+    public static void Print<T>(T result, ILogger logger)
     {
-        public static void Print<T>(T result)
+        var data = JsonSerializer.Serialize(result, new JsonSerializerOptions
         {
-            var data = JsonSerializer.Serialize(result, new JsonSerializerOptions
-            {
-                WriteIndented = true
-            });
+            WriteIndented = true
+        });
 
-            Console.WriteLine(data);
-        }
+        logger.LogInformation(data);
     }
 }

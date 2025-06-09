@@ -1,11 +1,10 @@
-﻿namespace Calabonga.PipelineExecutor.Demo
+﻿namespace Calabonga.PipelineExecutor.Demo;
+
+public class AppSettings
 {
-    public class AppSettings
-    {
-        public string? Name { get; set; }
+    public string? Name { get; set; }
 
-        public List<string>? TemplateContains { get; set; }
+    public List<string>? TemplateContains { get; set; }
 
-        public string? Welcome { get; set; }
-    }
+    public string? Welcome { get; set; }
 }
