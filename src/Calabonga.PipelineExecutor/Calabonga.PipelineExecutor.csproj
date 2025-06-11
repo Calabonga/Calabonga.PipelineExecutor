@@ -4,7 +4,7 @@
 		<TargetFramework>netstandard2.1</TargetFramework>
 		<Nullable>enable</Nullable>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-		<Version>1.0.0-beta.1</Version>
+		<Version>1.0.0-beta.2</Version>
 		<PackageIconUrl>https://www.calabonga.net/images/logo.png</PackageIconUrl>
 		<PackageTags>calabonga, pipeline, executor, pattern</PackageTags>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
@@ -19,8 +19,8 @@
 		<PackageIcon>logo.png</PackageIcon>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
 		<RepositoryType>git</RepositoryType>
-		<RepositoryUrl>https://github.com/Calabonga/Calabonga.Utils.Extensions</RepositoryUrl>
-		<PackageProjectUrl>https://github.com/Calabonga/Calabonga.Utils.Extensions</PackageProjectUrl>
+		<RepositoryUrl>https://github.com/Calabonga/Calabonga.PipelineExecutor</RepositoryUrl>
+		<PackageProjectUrl>https://www.calabonga.net/blog/all/index?search=pipeline</PackageProjectUrl>
 
 	</PropertyGroup>
 
