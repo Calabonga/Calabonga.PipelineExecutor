@@ -1,6 +1,9 @@
 # Calabonga.PipelineExecutor
-Pipeline pattern implementation. Simple process executor step-by-step.
+Pipeline pattern implementation. Simple process executor with step-by-step pipeline execution You can use a [Calabonga.PipelineExecutor](https://www.nuget.org/packages/Calabonga.PipelineExecutor/) as a nuget-package for your application.
 
+```powershell
+dotnet add package Calabonga.PipelineExecutor
+```
 
 ## How to use
 
