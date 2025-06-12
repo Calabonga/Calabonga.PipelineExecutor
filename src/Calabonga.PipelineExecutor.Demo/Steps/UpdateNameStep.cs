@@ -14,7 +14,7 @@ public class UpdateNameStep : PipelineStep<Image>
     {
         if (context is ImagePipelineContext imagePipelineContext)
         {
-            var name = imagePipelineContext.Name;
+            var name = imagePipelineContext.ImageDefaultName;
             item.Name = name;
             if (logger.IsEnabled(LogLevel.Debug))
             {

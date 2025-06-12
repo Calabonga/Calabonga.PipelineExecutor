@@ -4,17 +4,17 @@
 		<TargetFramework>netstandard2.1</TargetFramework>
 		<Nullable>enable</Nullable>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-		<Version>1.0.0-beta.2</Version>
+		<Version>1.0.0</Version>
 		<PackageIconUrl>https://www.calabonga.net/images/logo.png</PackageIconUrl>
 		<PackageTags>calabonga, pipeline, executor, pattern</PackageTags>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 		<Authors>Calabonga</Authors>
 		<Copyright>Calabonga SOFT © 2001-$([System.DateTime]::Now.ToString(yyyy))</Copyright>
 		<Company>Calabonga SOFT</Company>
-		<Description>Pipeline pattern implementation. Simple process executor step-by-step.</Description>
+		<Description>Pipeline pattern implementation as a simple step-by-step operations executor with Configuration and Context for steps.</Description>
 		<Product>Calabonga.PipelineExecutor</Product>
 		<PackageId>Calabonga.PipelineExecutor</PackageId>
-		<PackageReleaseNotes>First beta version.</PackageReleaseNotes>
+		<PackageReleaseNotes>First release.</PackageReleaseNotes>
 		<Title>Calabonga.PipelineExecutor</Title>
 		<PackageIcon>logo.png</PackageIcon>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
